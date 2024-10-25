@@ -9,8 +9,8 @@ public class User {
     // all arguments constructor
     public User(String name, boolean isSubscribedToProduct, boolean isSubscribedToOffer) {
         this.name = name;
-        this.isSubscribedToProduct = false;
-        this.isSubscribedToOffer = false;
+        this.isSubscribedToProduct = isSubscribedToProduct;
+        this.isSubscribedToOffer = isSubscribedToOffer;
     }
 
     // getter method
@@ -25,4 +25,14 @@ public class User {
     public boolean isSubscribedToOffer() {
         return isSubscribedToOffer;
     }
+
+    // helper methods
+    public void notifyNewProduct(Product product) {
+        System.out.println("Hello " + getName() + " Notifying new product added with name : " + product.getName() );
+    }
+
+    public void notifyNewOffer(Offer offer) {
+        System.out.println("Hello " + getName() + " Notifying new offer added with title : " + offer.getTitle() +" and with message "+offer.getOfferMessage());
+    }
 }
+

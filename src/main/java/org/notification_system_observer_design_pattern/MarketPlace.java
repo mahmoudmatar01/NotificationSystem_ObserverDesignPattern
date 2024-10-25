@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MarketPlace {
+
     protected List<User> users;
     protected List<Product>products;
     protected List<Offer>offers;
@@ -14,19 +15,7 @@ public class MarketPlace {
         this.products = new ArrayList<>();
         this.offers = new ArrayList<>();
     }
-    
-    // getter methods
-    public List<User> getUsers() {
-        return users;
-    }
 
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public List<Offer> getOffers() {
-        return offers;
-    }
     
     // helper methods 
     public void addUser(User user) {
@@ -35,10 +24,28 @@ public class MarketPlace {
     
     public void addNewProduct(Product product){
         products.add(product);
-        notifyUsers();
+        notifyUsers(product);
     }
 
-    private void notifyUsers() {
-
+    private void notifyUsers(Product product) {
+        System.out.println("Notify users for new product added");
+        users.forEach(user -> {
+            if(user.isSubscribedToProduct())
+                user.notifyNewProduct(product);
+        });
     }
+
+    public void addNewOffer(Offer offer){
+        offers.add(offer);
+        notifyUsers(offer);
+    }
+
+    private void notifyUsers(Offer offer) {
+        System.out.println("Notify users for new product added");
+        users.forEach(user -> {
+            if(user.isSubscribedToOffer())
+                user.notifyNewOffer(offer);
+        });
+    }
+
 }
