@@ -1,51 +1,54 @@
 package org.notification_system_observer_design_pattern;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MarketPlace {
 
-    protected List<User> users;
+    protected Map<EventType,List<Subscriber>> subscribers;
     protected List<Product>products;
     protected List<Offer>offers;
 
     // constructor to initiate fields
     public MarketPlace() {
-        this.users = new ArrayList<>();
+        this.subscribers = new HashMap<>();
+        initSubscribersEvent();
         this.products = new ArrayList<>();
         this.offers = new ArrayList<>();
     }
 
-    
-    // helper methods 
-    public void addUser(User user) {
-        users.add(user);
+    private void initSubscribersEvent(){
+        subscribers.put(EventType.NEW_PRODUCT,new ArrayList<>());
+        subscribers.put(EventType.NEW_OFFER,new ArrayList<>());
+        subscribers.put(EventType.JOB_OPENING,new ArrayList<>());
     }
-    
-    public void addNewProduct(Product product){
+
+    // helper methods
+    public void subscribe(EventType eventType,Subscriber subscriber) {
+        subscribers.get(eventType).add(subscriber);
+    }
+
+    public void unsubscribe(EventType eventType,Subscriber subscriber) {
+        subscribers.get(eventType).remove(subscriber);
+    }
+
+    public void addProduct(Product product) {
         products.add(product);
-        notifyUsers(product);
+        System.out.println("Notify customer for a new product");
+        subscribers.get(EventType.NEW_PRODUCT).forEach(customer -> customer.notify("New product added : "+product.getName()));
     }
 
-    private void notifyUsers(Product product) {
-        System.out.println("Notify users for new product added");
-        users.forEach(user -> {
-            if(user.isSubscribedToProduct())
-                user.notifyNewProduct(product);
-        });
-    }
-
-    public void addNewOffer(Offer offer){
+    public void addOffer(Offer offer) {
         offers.add(offer);
-        notifyUsers(offer);
+        System.out.println("Notify customer for a new offer");
+        subscribers.get(EventType.NEW_OFFER).forEach(customer -> customer.notify("New offer added : "+offer.getTitle()+" with message "+offer.getOfferMessage()));
     }
 
-    private void notifyUsers(Offer offer) {
-        System.out.println("Notify users for new product added");
-        users.forEach(user -> {
-            if(user.isSubscribedToOffer())
-                user.notifyNewOffer(offer);
-        });
+    public void addOpeningJob(String jobTitle){
+        System.out.println("Notify users for a new job");
+        subscribers.get(EventType.JOB_OPENING).forEach(customer -> customer.notify("a new job opened : "+jobTitle));
     }
 
 }
