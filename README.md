@@ -1,6 +1,6 @@
 # NotificationSystem_ObserverDesignPattern
 
-This project demonstrates the **Observer Design Pattern** through a notification system where subscribers are notified about different events, such as new products, special offers, and job openings in a marketplace. The system enables dynamic subscription and notification of multiple event types.
+This project demonstrates the **Observer Design Pattern** through a notification system that notifies subscribers about different events, such as new products, special offers, and job openings in a marketplace. The system enables dynamic subscription and notification of multiple event types.
 
 ---
 
@@ -10,8 +10,6 @@ This project demonstrates the **Observer Design Pattern** through a notification
 2. [Technologies](#technologies)
 3. [Design Pattern Explanation](#design-pattern-explanation)
 4. [Usage](#usage)
-5. [License](#license)
-6. [Contact](#contact)
 
 ---
 
@@ -33,9 +31,9 @@ This project demonstrates the **Observer Design Pattern** through a notification
 
 ## Design Pattern Explanation
 
-In this project, the Observer Design Pattern is used to allow multiple subscribers to receive notifications when an event occurs. The key classes involved are:
+In this project, the Observer Design Pattern allows multiple subscribers to receive notifications when an event occurs. The key classes involved are:
 
-- **Subscriber Interface**: Represents the observer with a `notify` method that each subscriber must implement.
+- **Subscriber Interface**: This interface represents the observer and has a `notify` method that each subscriber must implement.
 - **Customer & JobFinder Classes**: Implement the `Subscriber` interface, acting as observers who are notified of relevant events.
 - **MarketPlace Class**: Acts as the subject or publisher that manages event notifications and subscribers.
 - **EventType Enum**: Defines the types of events to which subscribers can subscribe (e.g., NEW_PRODUCT, NEW_OFFER, JOB_OPENING).
